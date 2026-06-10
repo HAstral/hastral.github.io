@@ -15,6 +15,11 @@ nav a{color:white;margin-right:20px;text-decoration:none}
 section{padding:40px;max-width:1000px;margin:auto}
 h1,h2{color:#93c5fd}
 a.btn{display:inline-block;padding:10px 16px;background:#2563eb;color:white;text-decoration:none;border-radius:8px}
+.card:hover {
+    background: #2d3748;
+    cursor: pointer;
+    transition: 0.3s;
+}
 </style>
 </head>
 <body>
@@ -52,28 +57,29 @@ NLP, Data Visualization, Git & GitHub.
 </section>
 
 <section id="projects">
-<h2>Projects</h2>
-<div class="card">
-<h3>Myanmar Agriculture Data Mining</h3>
-<p>Analysis of agricultural datasets using clustering and descriptive analytics.</p>
-</div>
-<div class="card">
-<h3>Burmese NLP & LSTM Research</h3>
-<p>Research project focused on Burmese language processing and deep learning techniques.</p>
-</div>
-<div class="card">
-<h3>Machine Learning Projects</h3>
-<p>Classification, prediction, and data analysis projects using Python and Scikit-learn.</p>
-</div>
-</section>
+    <h2>Projects</h2>
+    
+    <!-- Wrap each card in an <a> tag -->
+    <a href="https://github.com/HAstral/Predicting-and-Clustering-Myanmar-Crop-Production---Yield-Risk-Dynamics.git" style="text-decoration:none; color:inherit;">
+        <div class="card">
+            <h3>Myanmar Agriculture Data Mining</h3>
+            <p>Analysis of agricultural datasets using clustering and descriptive analytics.</p>
+        </div>
+    </a>
 
-<section id="contact">
-<h2>Contact</h2>
-<div class="card">
-<p>Email: htetaunghlyan13@gmail.com</p>
-<p>University Email: htetaunghlyan@ucsy.edu.mm</p>
-<p>GitHub: <a href="https://github.com/HAstral" style="color:#93c5fd">github.com/HAstral</a></p>
-</div>
+    <a href="https://github.com/Lynn-Myat-Bhone/Burmese_News_Headline_Generator.git" style="text-decoration:none; color:inherit;">
+        <div class="card">
+            <h3>Burmese NLP & LSTM Research</h3>
+            <p>Research project focused on Burmese language processing and deep learning techniques.</p>
+        </div>
+    </a>
+
+    <a href="https://github.com/HAstral/Predictive-Model-In-Agriculture.git" style="text-decoration:none; color:inherit;">
+        <div class="card">
+            <h3>Machine Learning Projects</h3>
+            <p>Classification, prediction, and data analysis projects using Python and Scikit-learn.</p>
+        </div>
+    </a>
 </section>
 </body>
 </html>
