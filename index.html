@@ -3,44 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Htet Aung Hlyan | AI & Knowledge Engineering</title>
+<title>Htet Aung Hlyan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:        #050c1a;
-    --surface:   #0c1829;
-    --surface2:  #101f33;
-    --border:    rgba(99,179,237,0.12);
-    --accent:    #38bdf8;
-    --accent2:   #818cf8;
-    --accent3:   #34d399;
-    --text:      #e2e8f0;
-    --muted:     #64748b;
-    --glow:      rgba(56,189,248,0.15);
+    --bg:       #f0f4f8;
+    --surface:  #ffffff;
+    --surface2: #e8edf3;
+    --border:   #d4dce8;
+    --accent:   #4a7fa5;
+    --accent2:  #7b9ec0;
+    --text:     #2c3a4a;
+    --muted:    #7a8fa3;
+    --soft:     #b0c0d0;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
-  }
-
-  /* ── Noise texture overlay ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
-    pointer-events: none;
-    z-index: 0;
   }
 
   /* ── Nav ── */
@@ -51,517 +39,354 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 48px;
-    background: rgba(5,12,26,0.85);
-    backdrop-filter: blur(20px);
+    padding: 20px 52px;
+    background: rgba(240,244,248,0.92);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
 
   .nav-logo {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--text);
+    letter-spacing: 0.01em;
+    font-style: italic;
   }
 
-  .nav-links { display: flex; gap: 36px; }
+  .nav-links { display: flex; gap: 32px; }
 
   nav a {
     color: var(--muted);
     text-decoration: none;
     font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.03em;
     transition: color 0.2s;
-    position: relative;
   }
-
-  nav a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px; left: 0;
-    width: 0; height: 1px;
-    background: var(--accent);
-    transition: width 0.3s;
-  }
-
   nav a:hover { color: var(--accent); }
-  nav a:hover::after { width: 100%; }
 
   /* ── Hero ── */
   .hero {
-    position: relative;
-    min-height: 92vh;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 90px 52px 80px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 48px;
-    overflow: hidden;
+    align-items: flex-start;
+    gap: 60px;
   }
 
-  /* radial glow blobs */
-  .hero::before, .hero::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    pointer-events: none;
-  }
-  .hero::before {
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(56,189,248,0.12), transparent 70%);
-    top: -100px; right: -100px;
-  }
-  .hero::after {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(129,140,248,0.1), transparent 70%);
-    bottom: -50px; left: -50px;
-  }
-
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    gap: 72px;
-    max-width: 1000px;
-    width: 100%;
-  }
-
-  .hero-photo-wrap {
+  .hero-photo {
     flex-shrink: 0;
-    position: relative;
   }
 
-  .hero-photo-wrap::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 24px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    z-index: -1;
-  }
-
-  .hero-photo-wrap img {
+  .hero-photo img {
     display: block;
-    width: 240px;
-    height: 280px;
+    width: 190px;
+    height: 220px;
     object-fit: cover;
-    border-radius: 22px;
-    filter: grayscale(20%) brightness(0.95);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(74,127,165,0.1);
   }
 
-  /* placeholder avatar if no image */
   .avatar-placeholder {
-    width: 240px;
-    height: 280px;
-    border-radius: 22px;
-    background: linear-gradient(135deg, var(--surface2), #162033);
+    width: 190px;
+    height: 220px;
+    border-radius: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 5rem;
+    font-size: 4rem;
   }
 
-  .hero-text { flex: 1; }
+  .hero-text { flex: 1; padding-top: 8px; }
 
-  .hero-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
+  .hero-text h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-role {
+    font-size: 0.95rem;
     color: var(--accent);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 28px; height: 1px;
-    background: var(--accent);
-  }
-
-  h1 {
-    font-size: clamp(2.4rem, 5vw, 3.8rem);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #e2e8f0 30%, var(--accent) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 16px;
-  }
-
-  .hero-sub {
-    font-size: 1.05rem;
-    color: var(--muted);
     font-weight: 400;
+    margin-bottom: 18px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-bio {
+    font-size: 0.975rem;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 480px;
     margin-bottom: 28px;
-    line-height: 1.6;
   }
 
   .tag-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 36px;
+    gap: 7px;
+    margin-bottom: 32px;
   }
 
   .tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: var(--accent);
-    background: rgba(56,189,248,0.08);
-    border: 1px solid rgba(56,189,248,0.2);
-    padding: 5px 12px;
-    border-radius: 100px;
-    letter-spacing: 0.05em;
+    background: rgba(74,127,165,0.08);
+    border: 1px solid rgba(74,127,165,0.2);
+    padding: 4px 12px;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
   }
 
-  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 11px 22px;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    font-weight: 600;
+    gap: 7px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.84rem;
+    font-weight: 500;
     text-decoration: none;
-    letter-spacing: 0.03em;
-    transition: all 0.2s;
+    transition: all 0.18s;
   }
 
   .btn-primary {
     background: var(--accent);
-    color: var(--bg);
-    box-shadow: 0 0 24px rgba(56,189,248,0.25);
+    color: #fff;
   }
   .btn-primary:hover {
-    background: #7dd3fc;
-    box-shadow: 0 0 36px rgba(56,189,248,0.4);
+    background: #3a6f95;
     transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(74,127,165,0.25);
   }
 
   .btn-ghost {
-    background: transparent;
+    background: var(--surface);
     color: var(--text);
     border: 1px solid var(--border);
   }
   .btn-ghost:hover {
-    border-color: var(--accent);
+    border-color: var(--accent2);
     color: var(--accent);
     transform: translateY(-1px);
   }
 
+  /* ── Divider ── */
+  .divider {
+    max-width: 900px;
+    margin: 0 auto;
+    height: 1px;
+    background: var(--border);
+  }
+
   /* ── Sections ── */
   section {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 80px 48px;
-    position: relative;
-    z-index: 1;
+    padding: 64px 52px;
   }
 
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--accent);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
+  .section-head {
+    margin-bottom: 32px;
   }
 
-  h2 {
-    font-size: clamp(1.5rem, 3vw, 2.1rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+  .section-head h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
     color: var(--text);
-    margin-bottom: 36px;
-    position: relative;
-    display: inline-block;
+    letter-spacing: -0.01em;
   }
 
-  h2::after {
-    content: '';
-    position: absolute;
-    bottom: -8px; left: 0;
-    width: 40px; height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    border-radius: 2px;
+  .section-head p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-top: 6px;
   }
 
-  /* ── About card ── */
-  .about-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 32px 36px;
-    line-height: 1.8;
-    color: #94a3b8;
+  /* ── About ── */
+  .about-text {
     font-size: 0.975rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .about-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: linear-gradient(180deg, var(--accent), var(--accent2));
-  }
-
-  /* ── Skills grid ── */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 12px;
-  }
-
-  .skill-pill {
+    color: #4a5a6b;
+    line-height: 1.85;
+    max-width: 680px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
-    text-align: center;
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: #94a3b8;
-    transition: all 0.25s;
+    border-radius: 14px;
+    padding: 28px 32px;
+    border-left: 3px solid var(--accent2);
+  }
+
+  /* ── Skills ── */
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .skill-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 0.83rem;
+    color: #4a5a6b;
+    font-weight: 400;
+    transition: all 0.2s;
     cursor: default;
   }
 
-  .skill-pill:hover {
-    border-color: var(--accent);
+  .skill-chip:hover {
+    border-color: var(--accent2);
     color: var(--accent);
-    background: rgba(56,189,248,0.06);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(56,189,248,0.1);
+    background: rgba(74,127,165,0.04);
+    transform: translateY(-1px);
   }
 
-  /* ── Project cards ── */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 20px;
+  /* ── Projects ── */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .project-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 28px;
+    border-radius: 14px;
+    padding: 24px 28px;
     text-decoration: none;
     color: inherit;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .project-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top right, rgba(56,189,248,0.07), transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s;
+    align-items: flex-start;
+    gap: 20px;
+    transition: all 0.22s;
   }
 
   .project-card:hover {
-    border-color: rgba(56,189,248,0.35);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(56,189,248,0.12);
+    border-color: var(--accent2);
+    box-shadow: 0 6px 24px rgba(74,127,165,0.1);
+    transform: translateY(-2px);
   }
 
-  .project-card:hover::before { opacity: 1; }
-
   .project-icon {
-    font-size: 1.6rem;
-    width: 48px; height: 48px;
-    background: rgba(56,189,248,0.08);
-    border: 1px solid rgba(56,189,248,0.15);
-    border-radius: 12px;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 2px;
   }
 
-  .project-card h3 {
-    font-size: 1rem;
-    font-weight: 600;
+  .project-body { flex: 1; }
+
+  .project-body h3 {
+    font-size: 0.975rem;
+    font-weight: 500;
     color: var(--text);
+    margin-bottom: 6px;
     line-height: 1.3;
   }
 
-  .project-card p {
+  .project-body p {
     font-size: 0.855rem;
     color: var(--muted);
     line-height: 1.65;
-    flex: 1;
-  }
-
-  .project-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 4px;
+    margin-bottom: 12px;
   }
 
   .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
 
   .project-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--accent2);
-    background: rgba(129,140,248,0.08);
-    border: 1px solid rgba(129,140,248,0.18);
-    padding: 3px 9px;
-    border-radius: 100px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 2px 9px;
+    border-radius: 5px;
   }
 
   .project-arrow {
-    color: var(--muted);
-    font-size: 1rem;
-    transition: transform 0.2s, color 0.2s;
+    color: var(--soft);
+    font-size: 1.1rem;
+    margin-top: 4px;
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.2s;
   }
   .project-card:hover .project-arrow {
-    transform: translate(3px,-3px);
     color: var(--accent);
-  }
-
-  /* ── Stats strip ── */
-  .stats-strip {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-    background: var(--surface);
-    margin: 0 48px 60px;
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .stat {
-    flex: 1;
-    padding: 28px 20px;
-    text-align: center;
-    border-right: 1px solid var(--border);
-    position: relative;
-    z-index: 1;
-  }
-  .stat:last-child { border-right: none; }
-
-  .stat-num {
-    font-size: 1.9rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    transform: translate(2px, -2px);
   }
 
   /* ── Contact ── */
-  .contact-box {
+  .contact-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 48px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    border-radius: 14px;
+    padding: 36px 40px;
   }
 
-  .contact-box::after {
-    content: '';
-    position: absolute;
-    bottom: -60px; left: 50%;
-    transform: translateX(-50%);
-    width: 300px; height: 120px;
-    background: radial-gradient(ellipse, rgba(56,189,248,0.15), transparent 70%);
-    pointer-events: none;
+  .contact-card h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
   }
 
-  .contact-box h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
-  .contact-box p {
+  .contact-card p {
     color: var(--muted);
-    margin-bottom: 28px;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    line-height: 1.6;
   }
 
-  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
 
   /* ── Footer ── */
   footer {
     text-align: center;
-    padding: 32px;
+    padding: 28px;
     border-top: 1px solid var(--border);
-    color: var(--muted);
+    color: var(--soft);
     font-size: 0.78rem;
-    font-family: 'JetBrains Mono', monospace;
-    position: relative;
-    z-index: 1;
   }
 
-  /* ── Divider ── */
-  .divider {
-    width: 100%; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-    max-width: 1000px;
-    margin: 0 auto;
+  /* ── Scroll fade ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* ── Responsive ── */
-  @media (max-width: 700px) {
-    nav { padding: 14px 20px; }
-    .nav-links { gap: 20px; }
-    .hero { padding: 60px 20px; }
-    .hero-inner { flex-direction: column; gap: 36px; text-align: center; }
-    .hero-eyebrow { justify-content: center; }
-    .tag-row { justify-content: center; }
-    .btn-row { justify-content: center; }
-    section { padding: 60px 20px; }
-    .stats-strip { margin: 0 20px 40px; flex-direction: column; }
-    .stat { border-right: none; border-bottom: 1px solid var(--border); }
-    .stat:last-child { border-bottom: none; }
-    .contact-box { padding: 32px 20px; }
-  }
-
-  /* ── Scroll animations ── */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
+  @media (max-width: 680px) {
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 18px; }
+    .hero { flex-direction: column; gap: 28px; padding: 52px 20px 48px; }
+    section { padding: 52px 20px; }
+    .about-text { padding: 22px 20px; }
+    .contact-card { padding: 28px 20px; }
+    .project-card { flex-direction: column; gap: 12px; }
   }
 </style>
 </head>
@@ -569,7 +394,7 @@
 
 <!-- NAV -->
 <nav>
-  <span class="nav-logo">HAH.dev</span>
+  <span class="nav-logo">Htet Aung Hlyan</span>
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
@@ -579,50 +404,28 @@
 </nav>
 
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-photo-wrap">
-      <img src="profile.png" alt="Htet Aung Hlyan" />
+<div class="hero fade-in">
+  <div class="hero-photo">
+    <img src="profile.png" alt="Htet Aung Hlyan">     
+  </div>
+  <div class="hero-text">
+    <h1>Htet Aung Hlyan</h1>
+    <p class="hero-role">Knowledge Engineering Student</p>
+    <p class="hero-bio">I work at the intersection of data and language — building systems that mine patterns, learn from examples, and process text in ways that are actually useful. Lately I've been thinking a lot about low-resource NLP for Burmese.</p>
+    <div class="tag-row">
+      <span class="tag">Data Mining</span>
+      <span class="tag">Machine Learning</span>
+      <span class="tag">NLP</span>
+      <span class="tag">AI</span>
+      <span class="tag">Python</span>
     </div>
-    <div class="hero-text">
-      <div class="hero-eyebrow">Knowledge Engineering</div>
-      <h1>Htet Aung<br>Hlyan</h1>
-      <p class="hero-sub">Building intelligent systems at the intersection of<br>data, language, and machine reasoning.</p>
-      <div class="tag-row">
-        <span class="tag">Data Mining</span>
-        <span class="tag">Machine Learning</span>
-        <span class="tag">NLP</span>
-        <span class="tag">AI Systems</span>
-        <span class="tag">Python</span>
-      </div>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="https://github.com/HAstral" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a class="btn btn-ghost" href="#projects">View Projects ↓</a>
-      </div>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://github.com/HAstral" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a class="btn btn-ghost" href="#projects">See my work</a>
     </div>
-  </div>
-</div>
-
-<!-- STATS STRIP -->
-<div class="stats-strip fade-up">
-  <div class="stat">
-    <span class="stat-num">3+</span>
-    <span class="stat-label">Research Projects</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">5+</span>
-    <span class="stat-label">Tools & Frameworks</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">NLP</span>
-    <span class="stat-label">Focus Area</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">AI</span>
-    <span class="stat-label">Core Passion</span>
   </div>
 </div>
 
@@ -630,9 +433,10 @@
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="section-label fade-up">01 — Profile</div>
-  <h2 class="fade-up">About Me</h2>
-  <div class="about-card fade-up">
+  <div class="section-head fade-in">
+    <h2>About me</h2>
+  </div>
+  <div class="about-text fade-in">
     I'm a Knowledge Engineering student with a deep focus on Artificial Intelligence, Data Mining, Machine Learning, and Natural Language Processing. I'm drawn to problems where structured knowledge meets unstructured data — finding signal in noise, building models that learn, and designing systems that reason. Currently exploring the intersection of deep learning and low-resource languages like Burmese.
   </div>
 </section>
@@ -641,20 +445,22 @@
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="section-label fade-up">02 — Toolkit</div>
-  <h2 class="fade-up">Skills</h2>
-  <div class="skills-grid fade-up">
-    <div class="skill-pill">Python</div>
-    <div class="skill-pill">SQL</div>
-    <div class="skill-pill">Prolog</div>
-    <div class="skill-pill">Pandas</div>
-    <div class="skill-pill">NumPy</div>
-    <div class="skill-pill">Scikit-learn</div>
-    <div class="skill-pill">Data Mining</div>
-    <div class="skill-pill">ML Models</div>
-    <div class="skill-pill">NLP</div>
-    <div class="skill-pill">Data Viz</div>
-    <div class="skill-pill">Git & GitHub</div>
+  <div class="section-head fade-in">
+    <h2>Skills</h2>
+    <p>Tools and technologies I work with regularly</p>
+  </div>
+  <div class="skills-grid fade-in">
+    <div class="skill-chip">Python</div>
+    <div class="skill-chip">SQL</div>
+    <div class="skill-chip">Prolog</div>
+    <div class="skill-chip">Pandas</div>
+    <div class="skill-chip">NumPy</div>
+    <div class="skill-chip">Scikit-learn</div>
+    <div class="skill-chip">Data Mining</div>
+    <div class="skill-chip">ML Models</div>
+    <div class="skill-chip">NLP</div>
+    <div class="skill-chip">Data Visualisation</div>
+    <div class="skill-chip">Git & GitHub</div>
   </div>
 </section>
 
@@ -662,48 +468,53 @@
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="section-label fade-up">03 — Work</div>
-  <h2 class="fade-up">Projects</h2>
-  <div class="projects-grid fade-up">
+  <div class="section-head fade-in">
+    <h2>Projects</h2>
+    <p>A few things I've built and researched</p>
+  </div>
+  <div class="projects-list">
 
-    <a class="project-card" href="https://github.com/HAstral/Predicting-and-Clustering-Myanmar-Crop-Production---Yield-Risk-Dynamics.git" target="_blank" rel="noopener">
+    <a class="project-card fade-in" href="https://github.com/HAstral/Predicting-and-Clustering-Myanmar-Crop-Production---Yield-Risk-Dynamics" target="_blank" rel="noopener">
       <div class="project-icon">🌾</div>
-      <h3>Myanmar Agriculture Data Mining</h3>
-      <p>Analysis of agricultural datasets using clustering and descriptive analytics to uncover yield risk dynamics and crop production patterns.</p>
-      <div class="project-footer">
+      <div class="project-body">
+        <h3>Myanmar Agriculture Data Mining</h3>
+        <p>Analysis of agricultural datasets using clustering and descriptive analytics to uncover yield risk dynamics and crop production patterns across Myanmar.</p>
         <div class="project-tags">
           <span class="project-tag">Clustering</span>
           <span class="project-tag">Data Mining</span>
+          <span class="project-tag">Python</span>
         </div>
-        <span class="project-arrow">↗</span>
       </div>
+      <span class="project-arrow">↗</span>
     </a>
 
-    <a class="project-card" href="https://github.com/Lynn-Myat-Bhone/Burmese_News_Headline_Generator.git" target="_blank" rel="noopener">
+    <a class="project-card fade-in" href="https://github.com/Lynn-Myat-Bhone/Burmese_News_Headline_Generator" target="_blank" rel="noopener">
       <div class="project-icon">🗣️</div>
-      <h3>Burmese Headline Generation</h3>
-      <p>Research project focused on Burmese language processing and deep learning — generating news headlines using LSTM-based sequence models.</p>
-      <div class="project-footer">
+      <div class="project-body">
+        <h3>Burmese News Headline Generator</h3>
+        <p>Research into Burmese language processing and deep learning — building an LSTM-based model to generate news headlines in a low-resource language setting.</p>
         <div class="project-tags">
           <span class="project-tag">NLP</span>
           <span class="project-tag">LSTM</span>
           <span class="project-tag">Research</span>
+          <span class="project-tag">Burmese</span>
         </div>
-        <span class="project-arrow">↗</span>
       </div>
+      <span class="project-arrow">↗</span>
     </a>
 
-    <a class="project-card" href="https://github.com/HAstral/Predictive-Model-In-Agriculture.git" target="_blank" rel="noopener">
-      <div class="project-icon">🤖</div>
-      <h3>Predictive ML in Agriculture</h3>
-      <p>Classification and prediction models for agricultural outcomes using Python and Scikit-learn, with end-to-end data analysis pipelines.</p>
-      <div class="project-footer">
+    <a class="project-card fade-in" href="https://github.com/HAstral/Predictive-Model-In-Agriculture" target="_blank" rel="noopener">
+      <div class="project-icon">📊</div>
+      <div class="project-body">
+        <h3>Predictive Modelling in Agriculture</h3>
+        <p>Classification and prediction models for agricultural outcomes using Python and Scikit-learn, with end-to-end data analysis pipelines from raw data to results.</p>
         <div class="project-tags">
           <span class="project-tag">ML</span>
           <span class="project-tag">Scikit-learn</span>
+          <span class="project-tag">Classification</span>
         </div>
-        <span class="project-arrow">↗</span>
       </div>
+      <span class="project-arrow">↗</span>
     </a>
 
   </div>
@@ -713,28 +524,28 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label fade-up">04 — Connect</div>
-  <h2 class="fade-up">Get In Touch</h2>
-  <div class="contact-box fade-up">
-    <h3>Let's build something together</h3>
-    <p>Open to research collaborations, internships, and interesting AI/ML conversations.</p>
+  <div class="section-head fade-in">
+    <h2>Get in touch</h2>
+  </div>
+  <div class="contact-card fade-in">
+    <h3>Let's talk</h3>
+    <p>I'm open to research collaborations, internships, and conversations about AI and ML. Feel free to reach out through GitHub or drop me an email.</p>
     <div class="contact-links">
       <a class="btn btn-primary" href="https://github.com/HAstral" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub Profile
+        GitHub
       </a>
-      <a class="btn btn-ghost" href="mailto:">✉ Send Email</a>
+      <a class="btn btn-ghost" href="mailto:">✉ Email me</a>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  © 2025 Htet Aung Hlyan &nbsp;·&nbsp; Knowledge Engineering &nbsp;·&nbsp; Built with intention
+  Htet Aung Hlyan · Knowledge Engineering · 2026
 </footer>
 
 <script>
-  // Scroll-triggered fade-up
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -742,17 +553,9 @@
         observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // Subtle parallax on hero blobs
-  document.addEventListener('mousemove', e => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-    document.querySelector('.hero')?.style.setProperty('--mx', `${x}px`);
-    document.querySelector('.hero')?.style.setProperty('--my', `${y}px`);
-  });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 
 </body>
