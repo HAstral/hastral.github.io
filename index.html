@@ -46,21 +46,30 @@ body {
    LAYOUT
 ══════════════════════════════ */
 .layout {
-  display:grid;
-}
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 5px 1fr;
+    min-height: 100vh;
+    --sidebar-width: 280px;
+  }
 
 /* ── Sidebar ── */
 /* ===== Soft Blue Theme ===== */
 
-.sidebar{
-  width: var(--sidebar-width);
-  background:#edf6ff;
-  border-right:1px solid #cfe3f7;
-  transition:.35s ease;
-  position:relative;
-  overflow:hidden;
-}
+.sidebar {
+    background: #edf6ff;
+    border-right: 1px solid #cfe3f7;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    position: relative;
+  }
 
+.resizer {
+    background: #cfe3f7;
+    cursor: col-resize;
+    transition: background 0.2s;
+  }
+  .resizer:hover { background: #6baed6; }
+  
 .sidebar.collapsed {
   width: var(--sidebar-collapsed);
 }
@@ -201,7 +210,7 @@ body {
 .social-icon svg { width: 15px; height: 15px; fill: currentColor; }
 
 /* ── Main ── */
-main { padding: 0; overflow: hidden; }
+main { padding: 0; overflow: hidden; overflow-y: auto}
 
 /* ══════════════════════════════
    SECTIONS
@@ -713,6 +722,7 @@ main { padding: 0; overflow: hidden; }
     align-items: center;
     gap: 16px;
   }
+  .resizer { display: none; }
   .sidebar-photo { width: 60px; aspect-ratio: 1; font-size: 1.8rem; }
   .sidebar-tags, .sidebar-nav { display: none; }
   .sidebar-cta { margin-top: 0; flex-direction: row; }
@@ -731,68 +741,69 @@ main { padding: 0; overflow: hidden; }
 
   <!-- ══ SIDEBAR ══ -->
   <aside class="sidebar" id="sidebar">
+    
 
-  <!-- Toggle Button -->
-    <button class="sidebar-toggle" id="sidebarToggle">
-      ☰
-    </button>
-
-  <!-- Profile -->
-    <div class="sidebar-header">
-      <img src="profile.png" alt="Htet Aung Hlyan" class="sidebar-photo">
+    <!-- Toggle Button -->
+      <button class="sidebar-toggle" id="sidebarToggle">
+        ☰
+      </button>
   
-      <div class="sidebar-identity">
-        <div class="sidebar-name">Htet Aung Hlyan</div>
-        <div class="sidebar-role">knowledge_engineer.py</div>
-        <div class="sidebar-location">📍 Yangon, Myanmar</div>
+    <!-- Profile -->
+      <div class="sidebar-header">
+        <img src="profile.png" alt="Htet Aung Hlyan" class="sidebar-photo">
+    
+        <div class="sidebar-identity">
+          <div class="sidebar-name">Htet Aung Hlyan</div>
+          <div class="sidebar-role">knowledge_engineer.py</div>
+          <div class="sidebar-location">📍 Yangon, Myanmar</div>
+        </div>
       </div>
-    </div>
-  
-    <!-- Skills -->
-    <div class="sidebar-tags">
-      <div class="sidebar-tag">Data Mining</div>
-      <div class="sidebar-tag">Machine Learning</div>
-      <div class="sidebar-tag">NLP</div>
-      <div class="sidebar-tag">Python & Django</div>
-      <div class="sidebar-tag">AI Systems</div>
-    </div>
-  
-    <!-- Navigation -->
-    <nav class="sidebar-nav">
-      <a href="#intro">🏠 <span>Intro</span></a>
-      <a href="#about">👤 <span>About</span></a>
-      <a href="#skills">⚡ <span>Skills</span></a>
-      <a href="#projects">🚀 <span>Projects</span></a>
-      <a href="#contact">📩 <span>Contact</span></a>
-    </nav>
-  
-    <!-- Links -->
-    <div class="sidebar-cta">
-  
-      <a class="sidebar-btn"
-         href="https://github.com/HAstral"
-         target="_blank">
-  
-        <svg viewBox="0 0 24 24">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57C20.565 21.795 24 17.31 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
-  
-        <span>github/HAstral</span>
-      </a>
-  
-      <a class="sidebar-btn"
-         href="https://hastral.github.io"
-         target="_blank">
-  
-        🌐
-        <span>hastral.github.io</span>
-  
-      </a>
-  
-    </div>
-  
+    
+      <!-- Skills -->
+      <div class="sidebar-tags">
+        <div class="sidebar-tag">Data Mining</div>
+        <div class="sidebar-tag">Machine Learning</div>
+        <div class="sidebar-tag">NLP</div>
+        <div class="sidebar-tag">Python & Django</div>
+        <div class="sidebar-tag">AI Systems</div>
+      </div>
+    
+      <!-- Navigation -->
+      <nav class="sidebar-nav">
+        <a href="#intro">🏠 <span>Intro</span></a>
+        <a href="#about">👤 <span>About</span></a>
+        <a href="#skills">⚡ <span>Skills</span></a>
+        <a href="#projects">🚀 <span>Projects</span></a>
+        <a href="#contact">📩 <span>Contact</span></a>
+      </nav>
+    
+      <!-- Links -->
+      <div class="sidebar-cta">
+    
+        <a class="sidebar-btn"
+           href="https://github.com/HAstral"
+           target="_blank">
+    
+          <svg viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57C20.565 21.795 24 17.31 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+    
+          <span>github/HAstral</span>
+        </a>
+    
+        <a class="sidebar-btn"
+           href="https://hastral.github.io"
+           target="_blank">
+    
+          🌐
+          <span>hastral.github.io</span>
+    
+        </a>
+    
+      </div>
+    
   </aside>
-
+  <div class="resizer" id="resizer"></div>
   <!-- ══ MAIN ══ -->
   <main>
 
@@ -1055,24 +1066,34 @@ main { padding: 0; overflow: hidden; }
 
 <script>
 // Fade-in animation on scroll
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+// Resize logic
+  const sidebar = document.getElementById("sidebar");
+  const resizer = document.getElementById("resizer");
+  const layout = document.querySelector(".layout");
+
+  resizer.addEventListener("mousedown", (e) => {
+    document.addEventListener("mousemove", resize);
+    document.addEventListener("mouseup", stopResize);
   });
-}, { threshold: 0.1 });
 
-document.querySelectorAll('.fade').forEach(el => {
-  observer.observe(el);
-});
+  function resize(e) {
+    // Limits the width between 200px and 600px
+    const newWidth = Math.max(200, Math.min(600, e.clientX));
+    layout.style.setProperty("--sidebar-width", `${newWidth}px`);
+  }
 
-const toggleBtn = document.getElementById("sidebarToggle");
-const sidebar = document.getElementById("sidebar");
+  function stopResize() {
+    document.removeEventListener("mousemove", resize);
+  }
 
-toggleBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("collapsed");
-});
+  // Scroll Fade Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade').forEach(el => observer.observe(el));
 </script>
 
 </body>
