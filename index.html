@@ -10,26 +10,21 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f4f8fc;
-  --panel: #eaf3fb;
-  --surface: #ffffff;
-  --surface2: #dcecf9;
-
-  --border: #d4e3f1;
-  --border2: #c3d8eb;
-
-  --royal: #6baed6;
-  --royal-dim: rgba(107,174,214,0.10);
-  --royal-mid: rgba(107,174,214,0.22);
-  --mono: 'DM Mono', monospace;
-  --navy: #7fa9c9;
-  --sky: #8fc7ea;
-
-  --text: #2c4a63;
-  --muted: #6f8da6;
-  --faint: #e4eef7;
-  --sidebar-width: 280px;
-  --sidebar-collapsed: 85px;
+  --bg:         #0b0f1a;
+  --panel:      #0e1525;
+  --surface:    #111d30;
+  --surface2:   #162238;
+  --border:     #1e2f48;
+  --border2:    #243650;
+  --royal:      #4a7fe8;
+  --royal-dim:  rgba(74,127,232,0.08);
+  --royal-mid:  rgba(74,127,232,0.20);
+  --navy:       #1e3a6e;
+  --sky:        #7eb8f7;
+  --text:       #ccd8eb;
+  --muted:      #4e6280;
+  --faint:      #192a40;
+  --mono:       'DM Mono', monospace;
 }
 
 html { scroll-behavior: smooth; }
@@ -46,143 +41,151 @@ body {
    LAYOUT
 ══════════════════════════════ */
 .layout {
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 5px 1fr;
-    min-height: 100vh;
-    --sidebar-width: 280px;
-  }
+  display: grid;
+  grid-template-columns: 272px 1fr;
+  min-height: 100vh;
+}
 
 /* ── Sidebar ── */
-/* ===== Soft Blue Theme ===== */
-
 .sidebar {
-    background: #edf6ff;
-    border-right: 1px solid #cfe3f7;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    /* ... existing styles ... */
-    position: sticky;      /* Enables the sticky behavior */
-    top: 0;                /* Sticks to the very top of the window */
-    height: 100vh;         /* Ensures it takes the full viewport height */
-    overflow-y: auto;      /* Allows the sidebar itself to scroll if content is long */
-  }
-
-.resizer {
-    background: #cfe3f7;
-    cursor: col-resize;
-    transition: background 0.2s;
-  }
-  .resizer:hover { background: #6baed6; }
-  
-.sidebar.collapsed {
-  width: var(--sidebar-collapsed);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+  padding: 48px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  background: var(--panel);
 }
 
-.sidebar-toggle{
-  position:absolute;
-  top:16px;
-  right:14px;
-  width:36px;
-  height:36px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  background:#dcefff;
-  color:#3f7cc7;
-  font-size:18px;
+.sidebar-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.8rem;
+  box-shadow: 0 0 0 4px rgba(74,127,232,0.08);
 }
 
-.sidebar-header{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:12px;
-  margin-top:40px;
+.sidebar-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.sidebar-photo{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  object-fit:cover;
-  border:4px solid #b9daf7;
+.sidebar-identity { display: flex; flex-direction: column; gap: 5px; }
+
+.sidebar-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #dde9f8;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
-.sidebar-name{
-  color:#2f4f70;
-  font-weight:700;
+.sidebar-role {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--royal);
+  letter-spacing: 0.08em;
 }
 
-.sidebar-role{
-  color:#6495d6;
+.sidebar-location {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.sidebar-location{
-  color:#7b96b4;
+/* Sidebar tags */
+.sidebar-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.sidebar-tag{
-  background:#dff0ff;
-  color:#3f6fa8;
-  border-radius:8px;
-  padding:8px 12px;
-  margin-bottom:8px;
+.sidebar-tag {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--faint);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar-tag:last-child { border-bottom: none; }
+
+.sidebar-tag::before {
+  content: '';
+  display: inline-block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--royal);
+  flex-shrink: 0;
+  opacity: 0.6;
 }
 
-.sidebar-nav{
-  margin-top:25px;
+/* Sidebar nav */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.sidebar-nav a{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:12px;
-  border-radius:10px;
-  color:#436b9c;
-  text-decoration:none;
-  transition:.2s;
+.sidebar-nav a {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.18s;
+}
+.sidebar-nav a:hover {
+  color: var(--sky);
+  background: var(--royal-dim);
 }
 
-.sidebar-nav a:hover{
-  background:#d9ecff;
+/* Sidebar CTA */
+.sidebar-cta {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.sidebar-btn{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:#dff0ff;
-  color:#3f6fa8;
-  border-radius:10px;
-  padding:12px;
-  text-decoration:none;
-  margin-top:10px;
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border-radius: 8px;
+  color: var(--royal);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  transition: all 0.18s;
+  border: 1px solid var(--royal-mid);
+  background: var(--royal-dim);
 }
-
-.sidebar-btn:hover{
-  background:#cfe8ff;
-}
-
-/* Collapsed Mode */
-
-.sidebar.collapsed .sidebar-name,
-.sidebar.collapsed .sidebar-role,
-.sidebar.collapsed .sidebar-location,
-.sidebar.collapsed .sidebar-tag,
-.sidebar.collapsed .sidebar-nav span,
-.sidebar.collapsed .sidebar-btn span{
-  display:none;
-}
-
-.sidebar.collapsed .sidebar-photo{
-  width:55px;
-  height:55px;
-}
-
-.sidebar.collapsed .sidebar-btn,
-.sidebar.collapsed .sidebar-nav a{
-  justify-content:center;
+.sidebar-btn:hover {
+  background: var(--royal-mid);
+  color: var(--sky);
+  transform: translateY(-1px);
 }
 
 /* Socials row */
@@ -214,7 +217,7 @@ body {
 .social-icon svg { width: 15px; height: 15px; fill: currentColor; }
 
 /* ── Main ── */
-main { padding: 0; overflow: hidden; overflow-y: auto}
+main { padding: 0; overflow: hidden; }
 
 /* ══════════════════════════════
    SECTIONS
@@ -237,7 +240,7 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
 .section h2 {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #2c4a63;
+  color: #dde9f8;
   letter-spacing: -0.02em;
   margin-bottom: 30px;
 }
@@ -248,7 +251,7 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
 .hero-section {
   padding: 64px 56px 52px;
   border-bottom: 1px solid var(--border);
-  background: radial-gradient(ellipse 80% 60% at 70% 0%,rgba(143,199,234,0.25) 0%,transparent 70%);
+  background: radial-gradient(ellipse 80% 60% at 70% 0%, rgba(30,58,110,0.35) 0%, transparent 70%);
 }
 
 .hero-eyebrow {
@@ -272,7 +275,7 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
 .hero-headline {
   font-size: clamp(1.9rem, 3.2vw, 2.7rem);
   font-weight: 600;
-  color: #2c4a63;
+  color: #dde9f8;
   letter-spacing: -0.03em;
   line-height: 1.12;
   margin-bottom: 18px;
@@ -525,7 +528,7 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
 .proj-name {
   font-size: 0.91rem;
   font-weight: 500;
-  color: #2c4a63;
+  color: #c4d8f0;
   margin-bottom: 5px;
   transition: color 0.15s;
 }
@@ -602,7 +605,7 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
 
 .contact-val {
   font-size: 0.85rem;
-  color: #2c4a63;
+  color: #c4d8f0;
   font-weight: 500;
 }
 
@@ -726,7 +729,6 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
     align-items: center;
     gap: 16px;
   }
-  .resizer { display: none; }
   .sidebar-photo { width: 60px; aspect-ratio: 1; font-size: 1.8rem; }
   .sidebar-tags, .sidebar-nav { display: none; }
   .sidebar-cta { margin-top: 0; flex-direction: row; }
@@ -744,70 +746,43 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
 <div class="layout">
 
   <!-- ══ SIDEBAR ══ -->
-  <aside class="sidebar" id="sidebar">
-    
+  <aside class="sidebar">
+    <img src="profile.png" alt="Htet Aung Hlyan">
 
-    <!-- Toggle Button -->
-      <button class="sidebar-toggle" id="sidebarToggle">
-        ☰
-      </button>
-  
-    <!-- Profile -->
-      <div class="sidebar-header">
-        <img src="profile.png" alt="Htet Aung Hlyan" class="sidebar-photo">
-    
-        <div class="sidebar-identity">
-          <div class="sidebar-name">Htet Aung Hlyan</div>
-          <div class="sidebar-role">knowledge_engineer.py</div>
-          <div class="sidebar-location">📍 Yangon, Myanmar</div>
-        </div>
-      </div>
-    
-      <!-- Skills -->
-      <div class="sidebar-tags">
-        <div class="sidebar-tag">Data Mining</div>
-        <div class="sidebar-tag">Machine Learning</div>
-        <div class="sidebar-tag">NLP</div>
-        <div class="sidebar-tag">Python & Django</div>
-        <div class="sidebar-tag">AI Systems</div>
-      </div>
-    
-      <!-- Navigation -->
-      <nav class="sidebar-nav">
-        <a href="#intro">🏠 <span>Intro</span></a>
-        <a href="#about">👤 <span>About</span></a>
-        <a href="#skills">⚡ <span>Skills</span></a>
-        <a href="#projects">🚀 <span>Projects</span></a>
-        <a href="#contact">📩 <span>Contact</span></a>
-      </nav>
-    
-      <!-- Links -->
-      <div class="sidebar-cta">
-    
-        <a class="sidebar-btn"
-           href="https://github.com/HAstral"
-           target="_blank">
-    
-          <svg viewBox="0 0 24 24">
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57C20.565 21.795 24 17.31 24 12c0-6.63-5.37-12-12-12z"/>
-          </svg>
-    
-          <span>github/HAstral</span>
-        </a>
-    
-        <a class="sidebar-btn"
-           href="https://hastral.github.io"
-           target="_blank">
-    
-          🌐
-          <span>hastral.github.io</span>
-    
-        </a>
-    
-      </div>
-    
+    <div class="sidebar-identity">
+      <div class="sidebar-name">Htet Aung Hlyan</div>
+      <div class="sidebar-role">knowledge_engineer.py</div>
+      <div class="sidebar-location">📍 Yangon, Myanmar</div>
+    </div>
+
+    <div class="sidebar-tags">
+      <div class="sidebar-tag">Data Mining</div>
+      <div class="sidebar-tag">Machine Learning</div>
+      <div class="sidebar-tag">NLP</div>
+      <div class="sidebar-tag">Python & Django</div>
+      <div class="sidebar-tag">AI Systems</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#intro">Intro</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="sidebar-cta">
+      <a class="sidebar-btn" href="https://github.com/HAstral" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 . 405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57C20.565 21.795 24 17.31 24 12c0-6.63-5.37-12-12-12z" fill="currentColor"></path></svg>
+        github/HAstral
+      </a>
+      <a class="sidebar-btn" href="https://hastral.github.io" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1.04-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.5c2.5 1.23 4.2 3.72 4.2 6.5 0 2.46-1.22 4.63-3.1 5.93z" fill="currentColor"></path></svg>
+        hastral.github.io
+      </a>
+    </div>
   </aside>
-  <div class="resizer" id="resizer"></div>
+
   <!-- ══ MAIN ══ -->
   <main>
 
@@ -1070,34 +1045,17 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
 
 <script>
 // Fade-in animation on scroll
-// Resize logic
-  const sidebar = document.getElementById("sidebar");
-  const resizer = document.getElementById("resizer");
-  const layout = document.querySelector(".layout");
-
-  resizer.addEventListener("mousedown", (e) => {
-    document.addEventListener("mousemove", resize);
-    document.addEventListener("mouseup", stopResize);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
   });
+}, { threshold: 0.1 });
 
-  function resize(e) {
-    // Limits the width between 200px and 600px
-    const newWidth = Math.max(200, Math.min(600, e.clientX));
-    layout.style.setProperty("--sidebar-width", `${newWidth}px`);
-  }
-
-  function stopResize() {
-    document.removeEventListener("mousemove", resize);
-  }
-
-  // Scroll Fade Observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+document.querySelectorAll('.fade').forEach(el => {
+  observer.observe(el);
+});
 </script>
 
 </body>
