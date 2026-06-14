@@ -31,13 +31,23 @@
   --sidebar-width: 280px;
   --sidebar-collapsed: 85px;
 }
-
+/* Dark Mode Overrides */
+body.dark-mode {
+  --bg: #0b111a;
+  --panel: #161e2b;
+  --text: #dcecf9;
+  --muted: #8aaed0;
+  --border: #243650;
+  --royal: #7fa9c9;
+  --surface: #1a2433;
+}
 html { scroll-behavior: smooth; }
 
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--bg);
   color: var(--text);
+  transition: background 0.3s, color 0.3s; /* Smooth transition */
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -56,8 +66,8 @@ body {
 /* ===== Soft Blue Theme ===== */
 
 .sidebar {
-    background: #edf6ff;
-    border-right: 1px solid #cfe3f7;
+    background: var(--panel); 
+    border-right: 1px solid var(--border);
     transition: width 0.3s ease;
     overflow: hidden;
     /* ... existing styles ... */
@@ -745,7 +755,9 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
 
   <!-- ══ SIDEBAR ══ -->
   <aside class="sidebar" id="sidebar">
-    
+      <button id="theme-toggle" class="sidebar-btn">
+        🌓 <span>Toggle Theme</span>
+      </button>
 
     <!-- Toggle Button -->
       <button class="sidebar-toggle" id="sidebarToggle">
@@ -1075,6 +1087,25 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
   const resizer = document.getElementById("resizer");
   const layout = document.querySelector(".layout");
 
+  const toggleBtn = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  toggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    
+    // Save preference to localStorage
+    if (body.classList.contains('dark-mode')) {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.setItem('theme', 'light');
+    }
+  });
+
+  // Load saved preference on page refresh
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+  }
   resizer.addEventListener("mousedown", (e) => {
     document.addEventListener("mousemove", resize);
     document.addEventListener("mouseup", stopResize);
