@@ -3,559 +3,787 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Htet Aung Hlyan</title>
+<title>Htet Aung Hlyan — Knowledge Engineering</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg:       #f0f4f8;
-    --surface:  #ffffff;
-    --surface2: #e8edf3;
-    --border:   #d4dce8;
-    --accent:   #4a7fa5;
-    --accent2:  #7b9ec0;
-    --text:     #2c3a4a;
-    --muted:    #7a8fa3;
-    --soft:     #b0c0d0;
-  }
+:root {
+  --bg:        #0d1117;
+  --panel:     #111820;
+  --surface:   #161d27;
+  --border:    #1e2d3d;
+  --border2:   #243040;
+  --teal:      #2dd4bf;
+  --teal-dim:  rgba(45,212,191,0.08);
+  --teal-mid:  rgba(45,212,191,0.18);
+  --text:      #cdd6e0;
+  --muted:     #536070;
+  --faint:     #2a3744;
+  --mono:      'DM Mono', monospace;
+}
 
-  html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-  /* ── Nav ── */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 52px;
-    background: rgba(240,244,248,0.92);
-    backdrop-filter: blur(12px);
+/* ═══════════════════════════════
+   LAYOUT — sidebar + main
+═══════════════════════════════ */
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+  padding: 52px 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background: var(--panel);
+}
+
+.sidebar-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border2);
+  filter: grayscale(15%);
+}
+
+.avatar-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+}
+
+.sidebar-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #e2eaf2;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.sidebar-role {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--teal);
+  margin-top: 6px;
+  letter-spacing: 0.06em;
+}
+
+.sidebar-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--faint);
+  letter-spacing: 0.04em;
+}
+.sidebar-tag:last-child { border-bottom: none; }
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+}
+
+.sidebar-nav a {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.18s;
+}
+.sidebar-nav a:hover {
+  color: var(--teal);
+  background: var(--teal-dim);
+}
+
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--teal-dim);
+  border: 1px solid var(--teal-mid);
+  border-radius: 8px;
+  color: var(--teal);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  transition: all 0.18s;
+}
+.sidebar-btn:hover {
+  background: var(--teal-mid);
+  transform: translateY(-1px);
+}
+
+/* ── Main content ── */
+main {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════
+   SECTIONS
+═══════════════════════════════ */
+.section {
+  padding: 64px 60px;
+  border-bottom: 1px solid var(--border);
+}
+.section:last-child { border-bottom: none; }
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--teal);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.section h2 {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #e2eaf2;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════════════════
+   HERO / INTRO
+═══════════════════════════════ */
+.hero-section {
+  padding: 64px 60px 52px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.hero-headline {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+  color: #e2eaf2;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero-headline em {
+  font-style: normal;
+  color: var(--teal);
+}
+
+.hero-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 520px;
+  margin-bottom: 36px;
+}
+
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: 7px;
+  font-size: 0.83rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.18s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.btn-solid {
+  background: var(--teal);
+  color: var(--bg);
+}
+.btn-solid:hover {
+  background: #5eead4;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border2);
+}
+.btn-outline:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  transform: translateY(-1px);
+}
+
+/* ═══════════════════════════════
+   ABOUT
+═══════════════════════════════ */
+.about-body {
+  font-size: 0.925rem;
+  color: #7a8fa3;
+  line-height: 1.9;
+  max-width: 560px;
+}
+
+/* ═══════════════════════════════
+   TERMINAL SKILL WIDGET
+═══════════════════════════════ */
+.terminal {
+  background: #0a0f14;
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 620px;
+}
+
+.terminal-bar {
+  background: var(--surface);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.dot-r { background: #3a1f1f; border: 1px solid #5c2c2c; }
+.dot-y { background: #3a2d0e; border: 1px solid #5c4910; }
+.dot-g { background: #0e3020; border: 1px solid #175232; }
+
+.terminal-title {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-left: 4px;
+}
+
+.terminal-body {
+  padding: 24px 28px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.9;
+  color: #64748b;
+}
+
+.t-line { display: flex; gap: 12px; }
+
+.t-prompt { color: var(--teal); flex-shrink: 0; user-select: none; }
+
+.t-cmd { color: #94a3b8; }
+
+.t-output {
+  padding-left: 20px;
+  color: #536070;
+}
+
+.t-skill {
+  display: inline-block;
+  color: #7dd3c0;
+  margin-right: 4px;
+}
+.t-skill::before { content: '"'; color: var(--muted); }
+.t-skill::after  { content: '"'; color: var(--muted); }
+
+.t-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  background: var(--teal);
+  margin-left: 3px;
+  vertical-align: middle;
+  animation: blink 1.1s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ═══════════════════════════════
+   PROJECTS — table rows
+═══════════════════════════════ */
+.projects-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.projects-table thead tr {
+  border-bottom: 1px solid var(--border2);
+}
+
+.projects-table th {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 0 14px;
+  text-align: left;
+  font-weight: 400;
+}
+
+.projects-table th:last-child { text-align: right; }
+
+.project-row {
+  border-bottom: 1px solid var(--faint);
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+  display: table-row;
+  color: inherit;
+}
+
+.projects-table tbody tr {
+  border-bottom: 1px solid var(--faint);
+}
+
+.projects-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.projects-table td {
+  padding: 22px 0;
+  vertical-align: top;
+}
+
+.projects-table td:not(:last-child) {
+  padding-right: 24px;
+}
+
+.projects-table td:last-child {
+  text-align: right;
+  padding-top: 22px;
+}
+
+.proj-link {
+  display: table-row;
+  text-decoration: none;
+  color: inherit;
+}
+
+.proj-name {
+  font-size: 0.925rem;
+  font-weight: 500;
+  color: #c8d6e2;
+  margin-bottom: 5px;
+  transition: color 0.15s;
+}
+
+.proj-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+.proj-year {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.proj-tags-cell { vertical-align: top; padding-top: 24px; }
+
+.proj-tag {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  color: var(--teal);
+  background: var(--teal-dim);
+  border: 1px solid var(--teal-mid);
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 3px 3px 0;
+  white-space: nowrap;
+}
+
+.proj-arrow {
+  font-size: 0.9rem;
+  color: var(--faint);
+  transition: color 0.15s, transform 0.15s;
+  display: inline-block;
+}
+
+.proj-row-wrap:hover .proj-name { color: var(--teal); }
+.proj-row-wrap:hover .proj-arrow { color: var(--teal); transform: translate(2px,-2px); }
+.proj-row-wrap:hover td { background: rgba(45,212,191,0.02); }
+
+/* ═══════════════════════════════
+   CONTACT
+═══════════════════════════════ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 520px;
+}
+
+.contact-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.18s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-item:hover {
+  border-color: var(--teal);
+  background: var(--teal-dim);
+  transform: translateY(-1px);
+}
+
+.contact-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.contact-val {
+  font-size: 0.88rem;
+  color: #c8d6e2;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+.footer-strip {
+  padding: 20px 60px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-strip span {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+/* ═══════════════════════════════
+   SCROLL FADE
+═══════════════════════════════ */
+.fade {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade.visible { opacity: 1; transform: none; }
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media (max-width: 768px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar {
+    position: static;
+    height: auto;
+    padding: 32px 24px;
+    border-right: none;
     border-bottom: 1px solid var(--border);
-  }
-
-  .nav-logo {
-    font-family: 'Lora', serif;
-    font-size: 1rem;
-    color: var(--text);
-    letter-spacing: 0.01em;
-    font-style: italic;
-  }
-
-  .nav-links { display: flex; gap: 32px; }
-
-  nav a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 400;
-    letter-spacing: 0.03em;
-    transition: color 0.2s;
-  }
-  nav a:hover { color: var(--accent); }
-
-  /* ── Hero ── */
-  .hero {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 90px 52px 80px;
-    display: flex;
-    align-items: flex-start;
-    gap: 60px;
-  }
-
-  .hero-photo {
-    flex-shrink: 0;
-  }
-
-  .hero-photo img {
-    display: block;
-    width: 190px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 24px rgba(74,127,165,0.1);
-  }
-
-  .avatar-placeholder {
-    width: 190px;
-    height: 220px;
-    border-radius: 16px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-  }
-
-  .hero-text { flex: 1; padding-top: 8px; }
-
-  .hero-text h1 {
-    font-family: 'Lora', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 600;
-    line-height: 1.15;
-    color: var(--text);
-    margin-bottom: 10px;
-    letter-spacing: -0.01em;
-  }
-
-  .hero-role {
-    font-size: 0.95rem;
-    color: var(--accent);
-    font-weight: 400;
-    margin-bottom: 18px;
-    letter-spacing: 0.02em;
-  }
-
-  .hero-bio {
-    font-size: 0.975rem;
-    color: var(--muted);
-    line-height: 1.75;
-    max-width: 480px;
-    margin-bottom: 28px;
-  }
-
-  .tag-row {
-    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    gap: 7px;
-    margin-bottom: 32px;
-  }
-
-  .tag {
-    font-size: 0.75rem;
-    color: var(--accent);
-    background: rgba(74,127,165,0.08);
-    border: 1px solid rgba(74,127,165,0.2);
-    padding: 4px 12px;
-    border-radius: 6px;
-    letter-spacing: 0.02em;
-  }
-
-  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
-
-  .btn {
-    display: inline-flex;
     align-items: center;
-    gap: 7px;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 0.84rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.18s;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-  }
-  .btn-primary:hover {
-    background: #3a6f95;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(74,127,165,0.25);
-  }
-
-  .btn-ghost {
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .btn-ghost:hover {
-    border-color: var(--accent2);
-    color: var(--accent);
-    transform: translateY(-1px);
-  }
-
-  /* ── Divider ── */
-  .divider {
-    max-width: 900px;
-    margin: 0 auto;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* ── Sections ── */
-  section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 64px 52px;
-  }
-
-  .section-head {
-    margin-bottom: 32px;
-  }
-
-  .section-head h2 {
-    font-family: 'Lora', serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: -0.01em;
-  }
-
-  .section-head p {
-    font-size: 0.875rem;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-
-  /* ── About ── */
-  .about-text {
-    font-size: 0.975rem;
-    color: #4a5a6b;
-    line-height: 1.85;
-    max-width: 680px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 28px 32px;
-    border-left: 3px solid var(--accent2);
-  }
-
-  /* ── Skills ── */
-  .skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .skill-chip {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 9px 16px;
-    font-size: 0.83rem;
-    color: #4a5a6b;
-    font-weight: 400;
-    transition: all 0.2s;
-    cursor: default;
-  }
-
-  .skill-chip:hover {
-    border-color: var(--accent2);
-    color: var(--accent);
-    background: rgba(74,127,165,0.04);
-    transform: translateY(-1px);
-  }
-
-  /* ── Projects ── */
-  .projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px 28px;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    align-items: flex-start;
     gap: 20px;
-    transition: all 0.22s;
   }
-
-  .project-card:hover {
-    border-color: var(--accent2);
-    box-shadow: 0 6px 24px rgba(74,127,165,0.1);
-    transform: translateY(-2px);
-  }
-
-  .project-icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2px;
-  }
-
-  .project-body { flex: 1; }
-
-  .project-body h3 {
-    font-size: 0.975rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 6px;
-    line-height: 1.3;
-  }
-
-  .project-body p {
-    font-size: 0.855rem;
-    color: var(--muted);
-    line-height: 1.65;
-    margin-bottom: 12px;
-  }
-
-  .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-
-  .project-tag {
-    font-size: 0.72rem;
-    color: var(--muted);
-    background: var(--bg);
-    border: 1px solid var(--border);
-    padding: 2px 9px;
-    border-radius: 5px;
-  }
-
-  .project-arrow {
-    color: var(--soft);
-    font-size: 1.1rem;
-    margin-top: 4px;
-    flex-shrink: 0;
-    transition: color 0.2s, transform 0.2s;
-  }
-  .project-card:hover .project-arrow {
-    color: var(--accent);
-    transform: translate(2px, -2px);
-  }
-
-  /* ── Contact ── */
-  .contact-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 36px 40px;
-  }
-
-  .contact-card h3 {
-    font-family: 'Lora', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  .contact-card p {
-    color: var(--muted);
-    font-size: 0.9rem;
-    margin-bottom: 24px;
-    line-height: 1.6;
-  }
-
-  .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
-
-  /* ── Footer ── */
-  footer {
-    text-align: center;
-    padding: 28px;
-    border-top: 1px solid var(--border);
-    color: var(--soft);
-    font-size: 0.78rem;
-  }
-
-  /* ── Scroll fade ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 680px) {
-    nav { padding: 16px 20px; }
-    .nav-links { gap: 18px; }
-    .hero { flex-direction: column; gap: 28px; padding: 52px 20px 48px; }
-    section { padding: 52px 20px; }
-    .about-text { padding: 22px 20px; }
-    .contact-card { padding: 28px 20px; }
-    .project-card { flex-direction: column; gap: 12px; }
-  }
+  .sidebar-photo img, .avatar-placeholder { width: 64px; aspect-ratio: 1; font-size: 1.8rem; }
+  .sidebar-nav { display: none; }
+  .sidebar-tags { display: none; }
+  .hero-section, .section { padding: 40px 24px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .footer-strip { padding: 16px 24px; flex-direction: column; gap: 6px; }
+  .projects-table th:nth-child(3),
+  .projects-table td:nth-child(3) { display: none; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <span class="nav-logo">Htet Aung Hlyan</span>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
+<div class="layout">
 
-<!-- HERO -->
-<div class="hero fade-in">
-  <div class="hero-photo">
-    <img src="profile.png" alt="Htet Aung Hlyan">     
-  </div>
-  <div class="hero-text">
-    <h1>Htet Aung Hlyan</h1>
-    <p class="hero-role">Knowledge Engineering Student</p>
-    <p class="hero-bio">I work at the intersection of data and language — building systems that mine patterns, learn from examples, and process text in ways that are actually useful. Lately I've been thinking a lot about low-resource NLP for Burmese.</p>
-    <div class="tag-row">
-      <span class="tag">Data Mining</span>
-      <span class="tag">Machine Learning</span>
-      <span class="tag">NLP</span>
-      <span class="tag">AI</span>
-      <span class="tag">Python</span>
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+    <div class="sidebar-photo">
+      <!-- Replace with: <img src="profile.png" alt="Htet Aung Hlyan"> -->
+       <img src="profile.png" alt="Htet Aung Hlyan">
     </div>
-    <div class="btn-row">
-      <a class="btn btn-primary" href="https://github.com/HAstral" target="_blank" rel="noopener">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <a class="btn btn-ghost" href="#projects">See my work</a>
+
+    <div>
+      <div class="sidebar-name">Htet Aung Hlyan</div>
+      <div class="sidebar-role">knowledge_engineer.py</div>
     </div>
-  </div>
+
+    <div class="sidebar-tags">
+      <div class="sidebar-tag">Data Mining</div>
+      <div class="sidebar-tag">Machine Learning</div>
+      <div class="sidebar-tag">NLP</div>
+      <div class="sidebar-tag">AI Systems</div>
+      <div class="sidebar-tag">Python</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#intro">Intro</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a class="sidebar-btn" href="https://github.com/HAstral" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      github/HAstral
+    </a>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main>
+
+    <!-- INTRO -->
+    <div class="hero-section fade" id="intro">
+      <div class="hero-eyebrow">Available for research & internships</div>
+      <h1 class="hero-headline">
+        Mining patterns,<br>
+        understanding <em>language</em>,<br>
+        building systems that learn.
+      </h1>
+      <p class="hero-desc">
+        I'm a Knowledge Engineering student working on problems where structured knowledge meets unstructured data. Lately that means LSTM models for Burmese NLP and predictive analytics for agricultural systems.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#projects">View projects</a>
+        <a class="btn btn-outline" href="#contact">Get in touch</a>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="section fade" id="about">
+      <div class="section-label">Profile</div>
+      <h2>About me</h2>
+      <p class="about-body">
+        I study Knowledge Engineering with a focus on AI, Data Mining, Machine Learning, and Natural Language Processing. I'm drawn to the messy middle — where formal knowledge structures meet noisy real-world data, and where getting the model right actually matters for people. Right now I'm especially interested in low-resource NLP for Burmese, a language that's underserved in the research literature.
+      </p>
+    </section>
+
+    <!-- SKILLS — terminal widget -->
+    <section class="section fade" id="skills">
+      <div class="section-label">Toolkit</div>
+      <h2>Skills</h2>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dots">
+            <div class="dot dot-r"></div>
+            <div class="dot dot-y"></div>
+            <div class="dot dot-g"></div>
+          </div>
+          <span class="terminal-title">skills.py — python 3.11</span>
+        </div>
+        <div class="terminal-body">
+          <div class="t-line">
+            <span class="t-prompt">❯</span>
+            <span class="t-cmd">import skills</span>
+          </div>
+          <div style="height:10px"></div>
+          <div class="t-line">
+            <span class="t-prompt">❯</span>
+            <span class="t-cmd">skills.languages</span>
+          </div>
+          <div class="t-output">
+            <span class="t-skill">Python</span>
+            <span class="t-skill">SQL</span>
+            <span class="t-skill">Prolog</span>
+          </div>
+          <div style="height:6px"></div>
+          <div class="t-line">
+            <span class="t-prompt">❯</span>
+            <span class="t-cmd">skills.ml_stack</span>
+          </div>
+          <div class="t-output">
+            <span class="t-skill">Scikit-learn</span>
+            <span class="t-skill">Pandas</span>
+            <span class="t-skill">NumPy</span>
+            <span class="t-skill">LSTM / RNN</span>
+          </div>
+          <div style="height:6px"></div>
+          <div class="t-line">
+            <span class="t-prompt">❯</span>
+            <span class="t-cmd">skills.domains</span>
+          </div>
+          <div class="t-output">
+            <span class="t-skill">Data Mining</span>
+            <span class="t-skill">NLP</span>
+            <span class="t-skill">ML Modelling</span>
+            <span class="t-skill">Data Viz</span>
+          </div>
+          <div style="height:6px"></div>
+          <div class="t-line">
+            <span class="t-prompt">❯</span>
+            <span class="t-cmd">skills.tools</span>
+          </div>
+          <div class="t-output">
+            <span class="t-skill">Git</span>
+            <span class="t-skill">GitHub</span>
+            <span class="t-skill">Jupyter</span>
+          </div>
+          <div style="height:10px"></div>
+          <div class="t-line">
+            <span class="t-prompt" style="color:#536070">#</span>
+            <span style="color:#2e4050; font-style:italic;">always learning more</span>
+            <span class="t-cursor"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS — table style -->
+    <section class="section fade" id="projects">
+      <div class="section-label">Work</div>
+      <h2>Projects</h2>
+      <table class="projects-table">
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Tags</th>
+            <th>Year</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="proj-row-wrap" onclick="window.open('https://github.com/HAstral/Predicting-and-Clustering-Myanmar-Crop-Production---Yield-Risk-Dynamics','_blank')" style="cursor:pointer">
+            <td>
+              <div class="proj-name">Myanmar Agriculture Data Mining</div>
+              <div class="proj-desc">Clustering and descriptive analytics on agricultural datasets to surface yield risk dynamics and crop production patterns across Myanmar.</div>
+            </td>
+            <td class="proj-tags-cell">
+              <span class="proj-tag">Clustering</span>
+              <span class="proj-tag">Data Mining</span>
+              <span class="proj-tag">Python</span>
+            </td>
+            <td><span class="proj-year">2024</span></td>
+            <td><span class="proj-arrow">↗</span></td>
+          </tr>
+          <tr class="proj-row-wrap" onclick="window.open('https://github.com/Lynn-Myat-Bhone/Burmese_News_Headline_Generator','_blank')" style="cursor:pointer">
+            <td>
+              <div class="proj-name">Burmese News Headline Generator</div>
+              <div class="proj-desc">LSTM-based sequence model for generating Burmese news headlines — tackling NLP in a low-resource language setting.</div>
+            </td>
+            <td class="proj-tags-cell">
+              <span class="proj-tag">NLP</span>
+              <span class="proj-tag">LSTM</span>
+              <span class="proj-tag">Research</span>
+            </td>
+            <td><span class="proj-year">2024</span></td>
+            <td><span class="proj-arrow">↗</span></td>
+          </tr>
+          <tr class="proj-row-wrap" onclick="window.open('https://github.com/HAstral/Predictive-Model-In-Agriculture','_blank')" style="cursor:pointer">
+            <td>
+              <div class="proj-name">Predictive Modelling in Agriculture</div>
+              <div class="proj-desc">End-to-end classification and prediction pipelines for agricultural outcomes using Scikit-learn, from raw data cleaning to model evaluation.</div>
+            </td>
+            <td class="proj-tags-cell">
+              <span class="proj-tag">ML</span>
+              <span class="proj-tag">Scikit-learn</span>
+              <span class="proj-tag">Classification</span>
+            </td>
+            <td><span class="proj-year">2024</span></td>
+            <td><span class="proj-arrow">↗</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section fade" id="contact">
+      <div class="section-label">Connect</div>
+      <h2>Get in touch</h2>
+      <div class="contact-grid">
+        <a class="contact-item" href="https://github.com/HAstral" target="_blank" rel="noopener">
+          <span class="contact-label">GitHub</span>
+          <span class="contact-val">github.com/HAstral</span>
+        </a>
+        <a class="contact-item" href="mailto:">
+          <span class="contact-label">Email</span>
+          <span class="contact-val">Send a message</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer-strip">
+      <span>Htet Aung Hlyan · Knowledge Engineering</span>
+      <span>© 2026</span>
+    </div>
+
+  </main>
 </div>
-
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-head fade-in">
-    <h2>About me</h2>
-  </div>
-  <div class="about-text fade-in">
-    I'm a Knowledge Engineering student with a deep focus on Artificial Intelligence, Data Mining, Machine Learning, and Natural Language Processing. I'm drawn to problems where structured knowledge meets unstructured data — finding signal in noise, building models that learn, and designing systems that reason. Currently exploring the intersection of deep learning and low-resource languages like Burmese.
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-head fade-in">
-    <h2>Skills</h2>
-    <p>Tools and technologies I work with regularly</p>
-  </div>
-  <div class="skills-grid fade-in">
-    <div class="skill-chip">Python</div>
-    <div class="skill-chip">SQL</div>
-    <div class="skill-chip">Prolog</div>
-    <div class="skill-chip">Pandas</div>
-    <div class="skill-chip">NumPy</div>
-    <div class="skill-chip">Scikit-learn</div>
-    <div class="skill-chip">Data Mining</div>
-    <div class="skill-chip">ML Models</div>
-    <div class="skill-chip">NLP</div>
-    <div class="skill-chip">Data Visualisation</div>
-    <div class="skill-chip">Git & GitHub</div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-head fade-in">
-    <h2>Projects</h2>
-    <p>A few things I've built and researched</p>
-  </div>
-  <div class="projects-list">
-
-    <a class="project-card fade-in" href="https://github.com/HAstral/Predicting-and-Clustering-Myanmar-Crop-Production---Yield-Risk-Dynamics" target="_blank" rel="noopener">
-      <div class="project-icon">🌾</div>
-      <div class="project-body">
-        <h3>Myanmar Agriculture Data Mining</h3>
-        <p>Analysis of agricultural datasets using clustering and descriptive analytics to uncover yield risk dynamics and crop production patterns across Myanmar.</p>
-        <div class="project-tags">
-          <span class="project-tag">Clustering</span>
-          <span class="project-tag">Data Mining</span>
-          <span class="project-tag">Python</span>
-        </div>
-      </div>
-      <span class="project-arrow">↗</span>
-    </a>
-
-    <a class="project-card fade-in" href="https://github.com/Lynn-Myat-Bhone/Burmese_News_Headline_Generator" target="_blank" rel="noopener">
-      <div class="project-icon">🗣️</div>
-      <div class="project-body">
-        <h3>Burmese News Headline Generator</h3>
-        <p>Research into Burmese language processing and deep learning — building an LSTM-based model to generate news headlines in a low-resource language setting.</p>
-        <div class="project-tags">
-          <span class="project-tag">NLP</span>
-          <span class="project-tag">LSTM</span>
-          <span class="project-tag">Research</span>
-          <span class="project-tag">Burmese</span>
-        </div>
-      </div>
-      <span class="project-arrow">↗</span>
-    </a>
-
-    <a class="project-card fade-in" href="https://github.com/HAstral/Predictive-Model-In-Agriculture" target="_blank" rel="noopener">
-      <div class="project-icon">📊</div>
-      <div class="project-body">
-        <h3>Predictive Modelling in Agriculture</h3>
-        <p>Classification and prediction models for agricultural outcomes using Python and Scikit-learn, with end-to-end data analysis pipelines from raw data to results.</p>
-        <div class="project-tags">
-          <span class="project-tag">ML</span>
-          <span class="project-tag">Scikit-learn</span>
-          <span class="project-tag">Classification</span>
-        </div>
-      </div>
-      <span class="project-arrow">↗</span>
-    </a>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-head fade-in">
-    <h2>Get in touch</h2>
-  </div>
-  <div class="contact-card fade-in">
-    <h3>Let's talk</h3>
-    <p>I'm open to research collaborations, internships, and conversations about AI and ML. Feel free to reach out through GitHub or drop me an email.</p>
-    <div class="contact-links">
-      <a class="btn btn-primary" href="https://github.com/HAstral" target="_blank" rel="noopener">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <a class="btn btn-ghost" href="mailto:">✉ Email me</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  Htet Aung Hlyan · Knowledge Engineering · 2026
-</footer>
 
 <script>
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
     });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade').forEach(el => observer.observe(el));
 </script>
 
 </body>
