@@ -60,7 +60,11 @@ body {
     border-right: 1px solid #cfe3f7;
     transition: width 0.3s ease;
     overflow: hidden;
-    position: relative;
+    /* ... existing styles ... */
+    position: sticky;      /* Enables the sticky behavior */
+    top: 0;                /* Sticks to the very top of the window */
+    height: 100vh;         /* Ensures it takes the full viewport height */
+    overflow-y: auto;      /* Allows the sidebar itself to scroll if content is long */
   }
 
 .resizer {
