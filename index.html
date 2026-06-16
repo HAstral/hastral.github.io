@@ -741,6 +741,24 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
     align-items: center;
     gap: 16px;
   }
+  /* Hide the nav by default on mobile */
+  .sidebar-nav, .sidebar-tags, .sidebar-cta {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  /* When active, show the menu */
+  .sidebar-nav.nav-active, 
+  .sidebar-tags.nav-active, 
+  .sidebar-cta.nav-active {
+    display: flex;
+  }
+
+  /* Make sure the toggle button is visible */
+  .sidebar-toggle {
+    display: block; 
+  }
   .sidebar-photo { 
     width: 90px;      /* Increased from 60px */
     height: 90px;     /* Match the width */
@@ -1104,6 +1122,25 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
 
   const toggleBtn = document.getElementById('theme-toggle');
   const body = document.body;
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const nav = document.querySelector('.sidebar-nav');
+  const tags = document.querySelector('.sidebar-tags');
+  const cta = document.querySelector('.sidebar-cta');
+
+  sidebarToggle.addEventListener('click', () => {
+    nav.classList.toggle('nav-active');
+    tags.classList.toggle('nav-active');
+    cta.classList.toggle('nav-active');
+  });
+
+  // Close menu when a link is clicked
+  document.querySelectorAll('.sidebar-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('nav-active');
+      tags.classList.remove('nav-active');
+      cta.classList.remove('nav-active');
+    });
+  });
 
   toggleBtn.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
