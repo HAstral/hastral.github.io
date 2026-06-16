@@ -742,13 +742,17 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
     gap: 16px;
   }
   .sidebar-photo { 
-    width: 60px; 
-    height: 60px; /* Add this to ensure it stays circular */
-    border-radius: 50%; /* Ensure this is present */
+    width: 90px;      /* Increased from 60px */
+    height: 90px;     /* Match the width */
+    border-radius: 50%; 
     object-fit: cover; 
+    border: 3px solid #b9daf7; /* Slightly thinner border for a cleaner look at this size */
+  }
+  .sidebar-header {
+    gap: 16px; /* Adjust this value if you need more space between the image and the text */
   }
   .resizer { display: none; }
-  .sidebar-photo { width: 60px; aspect-ratio: 1; font-size: 1.8rem; }
+  /* .sidebar-photo { width: 60px; aspect-ratio: 1; font-size: 1.8rem; } */
   .sidebar-tags, .sidebar-nav { display: none; }
   .sidebar-cta { margin-top: 0; flex-direction: row; }
   .hero-section, .section { padding: 40px 24px; }
