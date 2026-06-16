@@ -110,12 +110,12 @@ body {
   margin-top:40px;
 }
 
-.sidebar-photo{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  object-fit:cover;
-  border:4px solid #b9daf7;
+.sidebar-photo {
+  width: 120px;
+  height: 120px; /* Explicitly set height to match width */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #b9daf7;
 }
 
 .sidebar-name{
@@ -740,6 +740,12 @@ main { padding: 0; overflow: hidden; overflow-y: auto}
     flex-wrap: wrap;
     align-items: center;
     gap: 16px;
+  }
+  .sidebar-photo { 
+    width: 60px; 
+    height: 60px; /* Add this to ensure it stays circular */
+    border-radius: 50%; /* Ensure this is present */
+    object-fit: cover; 
   }
   .resizer { display: none; }
   .sidebar-photo { width: 60px; aspect-ratio: 1; font-size: 1.8rem; }
